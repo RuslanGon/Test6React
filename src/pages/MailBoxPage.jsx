@@ -39,15 +39,17 @@ const [counter, setCounter] = useState(0)
     // setUsers([...users, finalUser ])
     // setUsers((pevState) => [...pevState, finalUser]);
   };
+
   const onDeleteUsers = (userId) => {
     const action = {type : 'mailbox/DELETE_USER', payload: userId}
     dispatch(action)
-
     // setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
   };
 
   const onChangeFilter = (event) => {
-    setFilter(event.target.value);
+    const action = {type : 'mailbox/FILTER_USER', payload: event.target.value}
+    dispatch(action)
+    // setFilter(event.target.value);
   };
   const filterUsers = useMemo(() => users.filter((user) =>
   user.userName.toLowerCase().includes(filter.toLowerCase()) || 
