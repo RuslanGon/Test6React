@@ -5,6 +5,11 @@ import MailBox from "../component/MailBox/MailBox";
 import { nanoid } from "nanoid";
 import MailBoxForm from "../component/MailBoxForm/MailBoxForm";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  addUser,
+  deleteUser,
+  filterUser,
+} from "../redux/mailbox/mailboxReducer";
 
 function MailBoxPage() {
   // const [filter, setFilter] = useState("");
@@ -16,13 +21,17 @@ function MailBoxPage() {
   //   return parseUsers;
   // });
 
-const dispatch = useDispatch()
-  
-const users = useSelector(state => {return state.mailbox.users})
+  const dispatch = useDispatch();
 
-const filter = useSelector(state => {return state.mailbox.filter})
+  const users = useSelector((state) => {
+    return state.mailbox.users;
+  });
 
-const [counter, setCounter] = useState(0)
+  const filter = useSelector((state) => {
+    return state.mailbox.filter;
+  });
+
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
@@ -33,36 +42,34 @@ const [counter, setCounter] = useState(0)
       ...formData,
       id: nanoid(),
     };
-
-    const action = {type : 'mailbox/ADD_USER', payload: finalUser}
-    dispatch(action)
-    // setUsers([...users, finalUser ])
-    // setUsers((pevState) => [...pevState, finalUser]);
+    dispatch(addUser(finalUser));
   };
 
   const onDeleteUsers = (userId) => {
-    const action = {type : 'mailbox/DELETE_USER', payload: userId}
-    dispatch(action)
-    // setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+    dispatch(deleteUser(userId));
   };
 
   const onChangeFilter = (event) => {
-    const action = {type : 'mailbox/FILTER_USER', payload: event.target.value}
-    dispatch(action)
-    // setFilter(event.target.value);
+    dispatch(filterUser(event.target.value));
   };
-  const filterUsers = useMemo(() => users.filter((user) =>
-  user.userName.toLowerCase().includes(filter.toLowerCase()) || 
-  user.userEmail.toLowerCase().includes(filter.toLowerCase())
-) , [filter, users])
-  
+  const filterUsers = useMemo(
+    () =>
+      users.filter(
+        (user) =>
+          user.userName.toLowerCase().includes(filter.toLowerCase()) ||
+          user.userEmail.toLowerCase().includes(filter.toLowerCase())
+      ),
+    [filter, users]
+  );
+
   return (
-    
     <div>
       <MailBoxForm onAddUsers={onAddUsers} />
       <section>
         <h2>Counter: {counter}</h2>
-        <button onClick={(() => setCounter(counter+1))} >Click to increment counter</button>
+        <button onClick={() => setCounter(counter + 1)}>
+          Click to increment counter
+        </button>
       </section>
       <section>
         <h2>Search users by name or email</h2>

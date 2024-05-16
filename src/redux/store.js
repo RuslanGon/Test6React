@@ -2,8 +2,9 @@
 // import { devToolsEnhancer } from "@redux-devtools/extension";
 
 import { configureStore } from "@reduxjs/toolkit";
+import { mailboxReducer } from "./mailbox/mailboxReducer";
 
-import { mailboxReduser } from "./mailbox/mailboxReducer";
+
 
 // const rootReduser = combineReducers({
 //     mailbox: mailboxReduser
@@ -15,6 +16,6 @@ import { mailboxReduser } from "./mailbox/mailboxReducer";
 
 export const store = configureStore({
     reducer: {
-        mailbox: mailboxReduser
+        mailbox: mailboxReducer
     }
   });
