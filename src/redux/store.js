@@ -3,7 +3,7 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import { mailboxReducer } from "./mailbox/mailboxReducer";
-
+import { timerReducer } from "./timer/timerSlice";
 
 
 // const rootReduser = combineReducers({
@@ -16,6 +16,7 @@ import { mailboxReducer } from "./mailbox/mailboxReducer";
 
 export const store = configureStore({
     reducer: {
-        mailbox: mailboxReducer
+        mailbox: mailboxReducer,
+        timer: timerReducer
     }
   });

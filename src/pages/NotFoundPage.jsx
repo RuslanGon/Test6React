@@ -5,6 +5,8 @@ import { Link, Navigate } from "react-router-dom";
 const NotFoundPage = () => {
 
 const [timer, setTimer] = useState(0)
+
+
 useEffect(() => {
   const intervaId = setInterval(() => {
     setTimer(prevTimer => prevTimer + 1)
